@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard - Bean There</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <nav class="dashboard-nav">
+    <div class="nav-container">
+      <h1>☕ Bean There Dashboard</h1>
+      <div class="user-info">
+        <span>Welcome, <strong><%= user.username %></strong></span>
+        <span class="role-badge <%= user.role.toLowerCase() %>"><%= user.role %></span>
+        <a href="/auth/logout" class="logout-btn">Logout</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="dashboard-layout">
+    <!-- Left Column - Main Content -->
+    <div class="main-content">
+      <!-- Stats Grid -->
+      <div class="stats-grid">
+        <div class="stat-card">
+          <h3>Today's Sales</h3>
+          <p class="stat-value">$<%= todaysSales.total.toFixed(2) %></p>
+          <p class="stat-label"><%= todaysSales.count %> orders</p>
+        </div>
+        
+        <div class="stat-card">
+          <h3>Low Stock Items</h3>
+          <p class="stat-value"><%= lowStock.length %></p>
+          <p class="stat-label">Need restocking</p>
+        </div>
+        
+        <div class="stat-card">
+          <h3>Top Customer</h3>
+          <p class="stat-value">
+            <% if (topCustomers.length > 0) { %>
+              $<%= topCustomers[0].totalSpent.toFixed(2) %>
+            <% } else { %>
+              $0.00
+            <% } %>
+          </p>
+          <p class="stat-label">
+            <% if (topCustomers.length > 0) { %>
+              <%= topCustomers[0].name %>
+            <% } else { %>
+              No customers
+            <% } %>
+          </p>
+        </div>
+      </div>
+
+      <!-- Analytics Cards -->
+      <div class="analytics-grid">
+        <!-- Low Stock Alert -->
+        <div class="dashboard-card">
+          <h2>🚨 Low Stock Alert</h2>
+          <% if (lowStock.length === 0) { %>
+            <p class="empty-state">All items well stocked</p>
+          <% } else { %>
+            <div class="table-container">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Product</th>
+                    <th>Category</th>
+                    <th>Stock</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% lowStock.forEach(product => { %>
+                    <tr class="<%= product.stockLevel === 0 ? 'critical' : '' %>">
+                      <td><%= product.name %></td>
+                      <td><%= product.category %></td>
+                      <td>
+                        <span class="stock-badge <%= product.stockLevel === 0 ? 'zero' : 'low' %>">
+                          <%= product.stockLevel %>
+                        </span>
+                      </td>
+                    </tr>
+                  <% }); %>
+                </tbody>
+              </table>
+            </div>
+          <% } %>
+        </div>
+
+        <!-- Top Customers -->
+        <div class="dashboard-card">
+          <h2>⭐ Top Customers</h2>
+          <% if (topCustomers.length === 0) { %>
+            <p class="empty-state">No customer data</p>
+          <% } else { %>
+            <div class="table-container">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Customer</th>
+                    <th>Total Spent</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% topCustomers.forEach(customer => { %>
+                    <tr>
+                      <td><%= customer.name %></td>
+                      <td class="currency">$<%= customer.totalSpent.toFixed(2) %></td>
+                    </tr>
+                  <% }); %>
+                </tbody>
+              </table>
+            </div>
+          <% } %>
+        </div>
+      </div>
+
+      <!-- Recent Orders -->
+      <div class="dashboard-card">
+        <h2>📦 Recent Orders</h2>
+        <% if (recentOrders.length === 0) { %>
+          <p class="empty-state">No orders yet</p>
+        <% } else { %>
+          <div class="table-container">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Order ID</th>
+                  <th>Customer</th>
+                  <th>Date</th>
+                  <th>Amount</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% recentOrders.forEach(order => { %>
+                  <tr>
+                    <td>#<%= order.id %></td>
+                    <td><%= order.customer.name %></td>
+                    <td><%= new Date(order.orderDate).toLocaleDateString() %></td>
+                    <td class="currency">$<%= order.totalAmount.toFixed(2) %></td>
+                    <td>
+                      <span class="status-badge <%= order.status.toLowerCase() %>">
+                        <%= order.status %>
+                      </span>
+                    </td>
+                  </tr>
+                <% }); %>
+              </tbody>
+            </table>
+          </div>
+        <% } %>
+      </div>
+    </div>
+
+    <!-- Right Sidebar - Workflows -->
+    <aside class="workflows-sidebar">
+      <div class="sidebar-card">
+        <h2>🤖 Workflows</h2>
+        
+        <% if (workflows.length === 0) { %>
+          <p class="empty-state">No workflows</p>
+        <% } else { %>
+          <div class="workflows-list">
+            <% workflows.forEach(workflow => { %>
+              <div class="workflow-item">
+                <div class="workflow-info">
+                  <h3><%= workflow.name %></h3>
+                  <div class="workflow-meta">
+                    <span class="node-count"><%= workflow.nodes?.length || 0 %> nodes</span>
+                    <span class="status-dot <%= workflow.active ? 'active' : 'inactive' %>"></span>
+                  </div>
+                </div>
+                
+                <% if (user.role === 'ADMIN') { %>
+                  <button class="trigger-btn" data-workflow-id="<%= workflow.id %>">
+                    <span>▶</span>
+                  </button>
+                <% } %>
+              </div>
+            <% }); %>
+          </div>
+        <% } %>
+      </div>
+    </aside>
+  </main>
+
+  <script src="/script.js"></script>
+</body>
+</html>

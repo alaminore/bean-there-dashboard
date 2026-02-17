@@ -1,0 +1,499 @@
+/* Root Variables */
+:root {
+  --brown-dark: #3E2723;
+  --brown-medium: #5D4037;
+  --brown-light: #8D6E63;
+  --cream: #FFF8E1;
+  --cream-dark: #F5E6C3;
+  --green: #558B2F;
+  --green-light: #7CB342;
+  --red: #C62828;
+  --orange: #F57C00;
+  --blue: #1976D2;
+  --white: #FFFFFF;
+  --gray-light: #F5F5F5;
+  --gray-medium: #BDBDBD;
+  --shadow: rgba(0, 0, 0, 0.1);
+}
+
+/* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: var(--gray-light);
+  color: var(--brown-dark);
+  line-height: 1.6;
+}
+
+/* Login Page */
+.login-page {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background: linear-gradient(135deg, var(--brown-medium), var(--brown-light));
+}
+
+.login-container {
+  background: var(--white);
+  padding: 3rem;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px var(--shadow);
+  max-width: 400px;
+  width: 100%;
+}
+
+.login-container h1 {
+  color: var(--brown-dark);
+  margin-bottom: 0.5rem;
+  text-align: center;
+}
+
+.login-container > p {
+  color: var(--brown-medium);
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: var(--brown-dark);
+  font-weight: 500;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 0.8rem;
+  border: 1px solid var(--gray-medium);
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border 0.3s;
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: var(--green);
+}
+
+button[type="submit"] {
+  width: 100%;
+  padding: 1rem;
+  background: var(--green);
+  color: var(--white);
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+button[type="submit"]:hover {
+  background: var(--green-light);
+}
+
+.error {
+  background: #FFEBEE;
+  color: var(--red);
+  padding: 1rem;
+  border-radius: 8px;
+  margin-bottom: 1.5rem;
+  border-left: 4px solid var(--red);
+}
+
+.demo-note {
+  text-align: center;
+  margin-top: 1.5rem;
+  color: var(--brown-medium);
+  font-size: 0.9rem;
+  font-style: italic;
+}
+
+/* Dashboard Navigation */
+.dashboard-nav {
+  background: var(--brown-dark);
+  color: var(--cream);
+  padding: 1rem 0;
+  box-shadow: 0 2px 10px var(--shadow);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.nav-container {
+  max-width: 1600px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.dashboard-nav h1 {
+  font-size: 1.5rem;
+  color: var(--cream);
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.role-badge {
+  padding: 0.3rem 0.8rem;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.role-badge.admin {
+  background: var(--green);
+  color: var(--white);
+}
+
+.role-badge.viewer {
+  background: var(--blue);
+  color: var(--white);
+}
+
+.logout-btn {
+  color: var(--cream);
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  border: 1px solid var(--cream);
+  border-radius: 8px;
+  transition: all 0.3s;
+}
+
+.logout-btn:hover {
+  background: var(--cream);
+  color: var(--brown-dark);
+}
+
+/* Dashboard Layout */
+.dashboard-layout {
+  max-width: 1600px;
+  margin: 2rem auto;
+  padding: 0 2rem;
+  display: grid;
+  grid-template-columns: 1fr 350px;
+  gap: 2rem;
+}
+
+.main-content {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+/* Stats Grid */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+}
+
+.stat-card {
+  background: var(--white);
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px var(--shadow);
+  border-left: 4px solid var(--green);
+}
+
+.stat-card h3 {
+  color: var(--brown-medium);
+  font-size: 0.9rem;
+  margin-bottom: 0.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.stat-value {
+  font-size: 2rem;
+  font-weight: bold;
+  color: var(--brown-dark);
+  margin: 0.5rem 0;
+}
+
+.stat-label {
+  color: var(--brown-medium);
+  font-size: 0.9rem;
+}
+
+/* Analytics Grid */
+.analytics-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  gap: 1.5rem;
+}
+
+/* Dashboard Cards */
+.dashboard-card {
+  background: var(--white);
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px var(--shadow);
+}
+
+.dashboard-card h2 {
+  color: var(--brown-dark);
+  margin-bottom: 1.5rem;
+  font-size: 1.3rem;
+}
+
+/* Tables */
+.table-container {
+  overflow-x: auto;
+}
+
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.data-table thead {
+  background: var(--cream);
+}
+
+.data-table th {
+  padding: 0.8rem;
+  text-align: left;
+  color: var(--brown-dark);
+  font-weight: 600;
+  border-bottom: 2px solid var(--cream-dark);
+  font-size: 0.9rem;
+}
+
+.data-table td {
+  padding: 0.8rem;
+  border-bottom: 1px solid var(--gray-light);
+  font-size: 0.9rem;
+}
+
+.data-table tbody tr:hover {
+  background: var(--cream);
+}
+
+.data-table tr.critical {
+  background: #FFEBEE;
+}
+
+/* Stock Badges */
+.stock-badge {
+  padding: 0.3rem 0.6rem;
+  border-radius: 12px;
+  font-weight: bold;
+  font-size: 0.85rem;
+}
+
+.stock-badge.zero {
+  background: var(--red);
+  color: var(--white);
+}
+
+.stock-badge.low {
+  background: var(--orange);
+  color: var(--white);
+}
+
+/* Status Badges */
+.status-badge {
+  padding: 0.3rem 0.8rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.status-badge.completed {
+  background: #C8E6C9;
+  color: #2E7D32;
+}
+
+.status-badge.pending {
+  background: #FFF9C4;
+  color: #F57F17;
+}
+
+.status-badge.cancelled {
+  background: #FFCDD2;
+  color: #C62828;
+}
+
+/* Currency */
+.currency {
+  font-weight: 600;
+  color: var(--green);
+}
+
+/* Empty States */
+.empty-state {
+  text-align: center;
+  color: var(--brown-medium);
+  padding: 2rem;
+  font-style: italic;
+}
+
+/* Workflows Sidebar */
+.workflows-sidebar {
+  position: sticky;
+  top: 90px;
+  height: fit-content;
+}
+
+.sidebar-card {
+  background: var(--white);
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px var(--shadow);
+}
+
+.sidebar-card h2 {
+  color: var(--brown-dark);
+  margin-bottom: 1.5rem;
+  font-size: 1.3rem;
+}
+
+.workflows-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.workflow-item {
+  padding: 1rem;
+  background: var(--gray-light);
+  border-radius: 10px;
+  border-left: 4px solid var(--green);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: transform 0.2s;
+}
+
+.workflow-item:hover {
+  transform: translateX(5px);
+}
+
+.workflow-info {
+  flex: 1;
+}
+
+.workflow-info h3 {
+  font-size: 1rem;
+  color: var(--brown-dark);
+  margin-bottom: 0.3rem;
+}
+
+.workflow-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.node-count {
+  font-size: 0.8rem;
+  color: var(--brown-medium);
+}
+
+.status-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.status-dot.active {
+  background: var(--green);
+  box-shadow: 0 0 8px var(--green);
+}
+
+.status-dot.inactive {
+  background: var(--gray-medium);
+}
+
+.trigger-btn {
+  background: var(--green);
+  color: var(--white);
+  border: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s;
+  font-size: 1.2rem;
+}
+
+.trigger-btn:hover {
+  background: var(--green-light);
+  transform: scale(1.1);
+}
+
+.trigger-btn:disabled {
+  background: var(--gray-medium);
+  cursor: not-allowed;
+}
+
+/* Table Sorting */
+.data-table th {
+  cursor: pointer;
+  user-select: none;
+  position: relative;
+}
+
+.sort-icon {
+  font-size: 0.8rem;
+  opacity: 0.5;
+  margin-left: 0.3rem;
+}
+
+.data-table th:hover .sort-icon {
+  opacity: 1;
+}
+
+/* Responsive */
+@media (max-width: 1200px) {
+  .dashboard-layout {
+    grid-template-columns: 1fr;
+  }
+  
+  .workflows-sidebar {
+    position: relative;
+    top: 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .analytics-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .nav-container {
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .user-info {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+}
