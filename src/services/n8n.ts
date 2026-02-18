@@ -51,12 +51,20 @@ export async function triggerWorkflow(workflowId: string) {
 }
 
 export async function getWorkflowById(workflowId: string) {
-  const response = await fetch(`${process.env.N8N_API_URL}/workflows/${workflowId}`, {
-    headers: { 'X-N8N-API-KEY': process.env.N8N_API_KEY! }
-  });
+  try {
+    const response = await fetch(`${process.env.N8N_API_URL}/workflows/${workflowId}`, {
+      headers: { 'X-N8N-API-KEY': process.env.N8N_API_KEY! }
+    });
 
-  if (!response.ok) throw new Error('Workflow not found');
-  
-  const data = await response.json();
-  return data.data;
+    if (!response.ok) {
+      throw new Error('Workflow not found');
+    }
+    
+    const data = await response.json();
+    console.log('Workflow data:', data); // Debug log
+    return data.data; // n8n wraps in { data: {...} }
+  } catch (error) {
+    console.error('Error fetching workflow:', error);
+    throw error;
+  }
 }
