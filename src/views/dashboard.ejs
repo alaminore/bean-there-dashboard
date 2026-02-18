@@ -166,21 +166,21 @@
         <% } else { %>
           <div class="workflows-list">
             <% workflows.forEach(workflow => { %>
-              <div class="workflow-item"><a href="/dashboard/workflow/<%= workflow.id %>">
+              <a href="/dashboard/workflow/<%= workflow.id %>" class="workflow-item">
                 <div class="workflow-info">
                   <h3><%= workflow.name %></h3>
                   <div class="workflow-meta">
                     <span class="node-count"><%= workflow.nodes?.length || 0 %> nodes</span>
                     <span class="status-dot <%= workflow.active ? 'active' : 'inactive' %>"></span>
-                  </div></a>
+                  </div>
                 </div>
                 
                 <% if (user.role === 'ADMIN') { %>
-                  <button class="trigger-btn" data-workflow-id="<%= workflow.id %>">
+                  <button class="trigger-btn" data-workflow-id="<%= workflow.id %>" onclick="event.preventDefault(); event.stopPropagation();">
                     <span>▶</span>
                   </button>
                 <% } %>
-              </div>
+              </a>
             <% }); %>
           </div>
         <% } %>
