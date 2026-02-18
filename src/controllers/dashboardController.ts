@@ -33,7 +33,13 @@ export async function renderWorkflowDetail(req: Request, res: Response, next: Ne
     const user = req.user as any;
     const workflowId = req.params.id as string;
     
+    console.log('Fetching workflow:', workflowId); // Debug
     const workflow = await getWorkflowById(workflowId);
+    console.log('Got workflow:', workflow); // Debug
+    
+    if (!workflow) {
+      throw new Error('Workflow not found.');
+    }
     
     res.render('workflow-detail', { user, workflow });
   } catch (error) {
