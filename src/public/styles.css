@@ -617,6 +617,9 @@ button[type="submit"]:hover {
 .node-params li {
   padding: 0.3rem 0;
   color: var(--brown-dark);
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  word-break: break-all; 
 }
 
 .node-params code {
@@ -630,6 +633,14 @@ button[type="submit"]:hover {
   color: var(--brown-medium);
   font-style: italic;
   margin-top: 0.5rem;
+}
+
+.param-value {
+  display: block;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap; 
 }
 
 /* Settings Card */
