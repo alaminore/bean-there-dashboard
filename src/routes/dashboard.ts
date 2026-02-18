@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import { requireAuth } from '../middleware/authMiddleware.js';
-import { renderDashboard } from '../controllers/dashboardController.js'
+import { renderDashboard, renderWorkflowDetail } from '../controllers/dashboardController.js'
 
 const router = Router();
 
@@ -8,5 +8,6 @@ const router = Router();
 router.use(requireAuth);
 
 router.get('/', renderDashboard);
+router.get('/workflow/:id', renderWorkflowDetail);
 
 export default router;

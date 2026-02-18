@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= workflow.name %> - Bean There Dashboard</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <nav class="dashboard-nav">
+    <div class="nav-container">
+      <h1>☕ Bean There Dashboard</h1>
+      <div class="user-info">
+        <a href="/dashboard" class="back-btn">← Back to Dashboard</a>
+        <span>Welcome, <strong><%= user.username %></strong></span>
+        <span class="role-badge <%= user.role.toLowerCase() %>"><%= user.role %></span>
+        <a href="/auth/logout" class="logout-btn">Logout</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="workflow-detail-container">
+    <!-- Workflow Header -->
+    <div class="workflow-header-card">
+      <div class="workflow-title">
+        <h1><%= workflow.name %></h1>
+        <span class="status-badge <%= workflow.active ? 'active' : 'inactive' %>">
+          <%= workflow.active ? 'Active' : 'Inactive' %>
+        </span>
+      </div>
+      
+      <div class="workflow-meta">
+        <div class="meta-item">
+          <span class="meta-label">Nodes:</span>
+          <span class="meta-value"><%= workflow.nodes.length %></span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-label">Connections:</span>
+          <span class="meta-value"><%= workflow.connections ? Object.keys(workflow.connections).length : 0 %></span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-label">Last Updated:</span>
+          <span class="meta-value"><%= new Date(workflow.updatedAt).toLocaleDateString() %></span>
+        </div>
+      </div>
+
+      <% if (user.role === 'ADMIN') { %>
+        <button class="trigger-workflow-btn" data-workflow-id="<%= workflow.id %>">
+          ▶ Execute Workflow
+        </button>
+      <% } %>
+    </div>
+
+    <!-- Workflow Nodes -->
+    <div class="workflow-section">
+      <h2>🔗 Workflow Nodes</h2>
+      <div class="nodes-grid">
+        <% workflow.nodes.forEach((node, index) => { %>
+          <div class="node-card">
+            <div class="node-header">
+              <span class="node-number"><%= index + 1 %></span>
+              <h3><%= node.name %></h3>
+            </div>
+            <div class="node-type"><%= node.type %></div>
+            
+            <% if (node.parameters && Object.keys(node.parameters).length > 0) { %>
+              <div class="node-params">
+                <strong>Parameters:</strong>
+                <ul>
+                  <% Object.entries(node.parameters).slice(0, 3).forEach(([key, value]) => { %>
+                    <li>
+                      <code><%= key %></code>: 
+                      <%= typeof value === 'string' && value.length > 50 ? value.substring(0, 50) + '...' : JSON.stringify(value) %>
+                    </li>
+                  <% }); %>
+                </ul>
+                <% if (Object.keys(node.parameters).length > 3) { %>
+                  <p class="more-params">+ <%= Object.keys(node.parameters).length - 3 %> more parameters</p>
+                <% } %>
+              </div>
+            <% } %>
+          </div>
+        <% }); %>
+      </div>
+    </div>
+
+    <!-- Workflow Settings -->
+    <div class="workflow-section">
+      <h2>⚙️ Workflow Settings</h2>
+      <div class="settings-card">
+        <div class="setting-row">
+          <span class="setting-label">Workflow ID:</span>
+          <code class="setting-value"><%= workflow.id %></code>
+        </div>
+        <div class="setting-row">
+          <span class="setting-label">Created:</span>
+          <span class="setting-value"><%= new Date(workflow.createdAt).toLocaleString() %></span>
+        </div>
+        <div class="setting-row">
+          <span class="setting-label">Last Updated:</span>
+          <span class="setting-value"><%= new Date(workflow.updatedAt).toLocaleString() %></span>
+        </div>
+        <% if (workflow.settings) { %>
+          <div class="setting-row">
+            <span class="setting-label">Timezone:</span>
+            <span class="setting-value"><%= workflow.settings.timezone || 'Default' %></span>
+          </div>
+        <% } %>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    // Trigger workflow execution
+    const triggerBtn = document.querySelector('.trigger-workflow-btn');
+    if (triggerBtn) {
+      triggerBtn.addEventListener('click', async () => {
+        const workflowId = triggerBtn.dataset.workflowId;
+        triggerBtn.disabled = true;
+        triggerBtn.textContent = '⏳ Executing...';
+        
+        try {
+          const response = await fetch(`/api/workflows/${workflowId}/trigger`, {
+            method: 'POST'
+          });
+          
+          if (response.ok) {
+            triggerBtn.textContent = '✓ Executed!';
+            setTimeout(() => {
+              triggerBtn.textContent = '▶ Execute Workflow';
+              triggerBtn.disabled = false;
+            }, 2000);
+          } else {
+            throw new Error('Failed to trigger');
+          }
+        } catch (error) {
+          triggerBtn.textContent = '✗ Failed';
+          triggerBtn.disabled = false;
+        }
+      });
+    }
+  </script>
+</body>
+</html>

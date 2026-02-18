@@ -466,6 +466,220 @@ button[type="submit"]:hover {
   opacity: 1;
 }
 
+/* Workflow Detail Page */
+.workflow-detail-container {
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 0 2rem;
+}
+
+.workflow-header-card {
+  background: var(--white);
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px var(--shadow);
+  margin-bottom: 2rem;
+}
+
+.workflow-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.workflow-title h1 {
+  font-size: 2rem;
+  color: var(--brown-dark);
+  margin: 0;
+}
+
+.workflow-meta {
+  display: flex;
+  gap: 2rem;
+  margin-bottom: 1.5rem;
+  padding: 1rem;
+  background: var(--gray-light);
+  border-radius: 8px;
+}
+
+.meta-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.meta-label {
+  font-size: 0.85rem;
+  color: var(--brown-medium);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.meta-value {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: var(--brown-dark);
+}
+
+.trigger-workflow-btn {
+  width: 100%;
+  padding: 1rem;
+  background: var(--green);
+  color: var(--white);
+  border: none;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.trigger-workflow-btn:hover {
+  background: var(--green-light);
+}
+
+.trigger-workflow-btn:disabled {
+  background: var(--gray-medium);
+  cursor: not-allowed;
+}
+
+.workflow-section {
+  background: var(--white);
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px var(--shadow);
+  margin-bottom: 2rem;
+}
+
+.workflow-section h2 {
+  color: var(--brown-dark);
+  margin-bottom: 1.5rem;
+  font-size: 1.5rem;
+}
+
+/* Nodes Grid */
+.nodes-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+.node-card {
+  background: var(--gray-light);
+  padding: 1.5rem;
+  border-radius: 10px;
+  border-left: 4px solid var(--green);
+}
+
+.node-header {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  margin-bottom: 0.8rem;
+}
+
+.node-number {
+  background: var(--green);
+  color: var(--white);
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+}
+
+.node-card h3 {
+  font-size: 1.1rem;
+  color: var(--brown-dark);
+  margin: 0;
+}
+
+.node-type {
+  font-size: 0.85rem;
+  color: var(--brown-medium);
+  font-family: monospace;
+  margin-bottom: 1rem;
+}
+
+.node-params {
+  margin-top: 1rem;
+  font-size: 0.9rem;
+}
+
+.node-params ul {
+  list-style: none;
+  padding: 0;
+  margin: 0.5rem 0;
+}
+
+.node-params li {
+  padding: 0.3rem 0;
+  color: var(--brown-dark);
+}
+
+.node-params code {
+  background: var(--white);
+  padding: 0.2rem 0.4rem;
+  border-radius: 4px;
+  font-size: 0.85rem;
+}
+
+.more-params {
+  color: var(--brown-medium);
+  font-style: italic;
+  margin-top: 0.5rem;
+}
+
+/* Settings Card */
+.settings-card {
+  background: var(--gray-light);
+  padding: 1.5rem;
+  border-radius: 10px;
+}
+
+.setting-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.8rem 0;
+  border-bottom: 1px solid var(--cream-dark);
+}
+
+.setting-row:last-child {
+  border-bottom: none;
+}
+
+.setting-label {
+  font-weight: 600;
+  color: var(--brown-medium);
+}
+
+.setting-value {
+  color: var(--brown-dark);
+}
+
+code.setting-value {
+  background: var(--white);
+  padding: 0.3rem 0.6rem;
+  border-radius: 4px;
+  font-size: 0.9rem;
+}
+
+.back-btn {
+  color: var(--cream);
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  border: 1px solid var(--cream);
+  border-radius: 8px;
+  transition: all 0.3s;
+}
+
+.back-btn:hover {
+  background: var(--cream);
+  color: var(--brown-dark);
+}
+
 /* Responsive */
 @media (max-width: 1200px) {
   .dashboard-layout {
