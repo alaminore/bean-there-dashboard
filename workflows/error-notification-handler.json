@@ -1,0 +1,71 @@
+{
+  "name": "Error Handling",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.errorTrigger",
+      "typeVersion": 1,
+      "position": [
+        -336,
+        -16
+      ],
+      "id": "889afa83-7a8e-4a2c-be69-21e795a92dc4",
+      "name": "Error Trigger"
+    },
+    {
+      "parameters": {
+        "sendTo": "beanthere.demo@gmail.com",
+        "subject": "=⚠️ Workflow Error: {{$json.workflow.name}}",
+        "message": "=<h2>🚨 Workflow Execution Failed</h2>\n\n<p><strong>Workflow:</strong> {{$json.workflow.name}}</p>\n<p><strong>Error:</strong> {{ $json.execution.error.message }}</p>\n<p><strong>Failed Node:</strong> {{ $json.execution.lastNodeExecuted }}</p>\n<p><strong>Time:</strong> {{$now.format('y-MM-d HH:mm:ss')}}</p>\n<p><em>Check n8n execution logs for details</em></p>",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        -128,
+        -16
+      ],
+      "id": "e40bdbae-651f-4d4b-a519-352706ec1f47",
+      "name": "Send a message",
+      "webhookId": "5c507897-f7c7-4f9e-a5e1-107f740c1c39",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "uzNYMPQesWwYwAtd",
+          "name": "Gmail account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Error Trigger": {
+      "main": [
+        [
+          {
+            "node": "Send a message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send a message": {
+      "main": [
+        []
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "a5bfa6d2-41cb-4438-823e-7ce7b83f8c04",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "de3df412709ca23eacb24e65635dbf43a5125ffa66f84e6d74283e42860c225f"
+  },
+  "id": "t1PCRUf2m2q5YSxv",
+  "tags": []
+}

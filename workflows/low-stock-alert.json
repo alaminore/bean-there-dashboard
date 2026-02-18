@@ -1,0 +1,173 @@
+{
+  "name": "Bean There Low Stock Workflow",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "triggerAtHour": 8
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.3,
+      "position": [
+        0,
+        0
+      ],
+      "id": "fa81d170-a706-44bc-8bb1-05490e700217",
+      "name": "Schedule Trigger"
+    },
+    {
+      "parameters": {
+        "url": "http://localhost:3000/api/inventory/low-stock",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "x-api-key",
+              "value": "gP466AvCShM1OxUn2yHEDnlW8lQ3Xa91"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        208,
+        0
+      ],
+      "id": "b0356a17-c10d-4c2f-82db-945fdaceee9a",
+      "name": "HTTP Request"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "629d4b70-2b15-4fd9-b4d2-c500a7fe26e4",
+              "leftValue": "={{ $json.lowStock.length }}",
+              "rightValue": 0,
+              "operator": {
+                "type": "number",
+                "operation": "gt"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        416,
+        0
+      ],
+      "id": "c97735cc-103b-41af-855b-807e12dfef75",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "sendTo": "beanthere.demo@gmail.com",
+        "subject": "=🚨 Low Stock Alert - {{$now.format('MMMM d, y')}}",
+        "message": "=<h2>Items Need Restocking</h2>\n   <ul>\n      {{$json.lowStock.map(item => `<li><strong>${item.name}</strong> (${item.category}) - ${item.stockLevel} left</li>`).join('')}}\n   </ul>",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        592,
+        -144
+      ],
+      "id": "47a300b7-bc3e-4943-9fbc-8e2d2e3f0967",
+      "name": "Send a message",
+      "webhookId": "9e704b50-7035-4793-b1e3-e1f904ebb158",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "uzNYMPQesWwYwAtd",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        592,
+        96
+      ],
+      "id": "021879f8-434b-471b-a9f4-f8fe0b8300f6",
+      "name": "No Operation, do nothing"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Send a message",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "No Operation, do nothing",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false,
+    "timeSavedMode": "fixed",
+    "errorWorkflow": "t1PCRUf2m2q5YSxv",
+    "callerPolicy": "workflowsFromSameOwner"
+  },
+  "versionId": "fa74ddb6-6446-4cb3-8074-ffdf0ca6c549",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "de3df412709ca23eacb24e65635dbf43a5125ffa66f84e6d74283e42860c225f"
+  },
+  "id": "xmiEiNd3lOc0tD65",
+  "tags": []
+}
