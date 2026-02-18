@@ -12,7 +12,7 @@ export async function renderDashboard(req: Request, res: Response, next: NextFun
       getLowStockProducts(),
       getTopCustomers(),
       getRecentOrders(),
-      getN8nWorkflows()
+      getN8nWorkflows().catch(()=> [])
     ]);
     
     res.render('dashboard', { 

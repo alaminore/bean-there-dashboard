@@ -161,7 +161,8 @@
         <h2>🤖 Workflows</h2>
         
         <% if (workflows.length === 0) { %>
-          <p class="empty-state">No workflows</p>
+          <p class="empty-state">⏳ Workflows unavailable (n8n may be waking up)<br>
+            <small>Refresh in 30 seconds</small></p>
         <% } else { %>
           <div class="workflows-list">
             <% workflows.forEach(workflow => { %>
