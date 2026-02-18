@@ -11,7 +11,7 @@ import cors from 'cors';
 import { apiLimiter } from './middleware/rateLimiter.js';
 import { requireApiKey } from './middleware/apiAuth.js';
 import helmet from 'helmet';
-import csurf from 'csurf';
+
 
 const app = express();
 
@@ -51,16 +51,6 @@ app.use(helmet({
     }
   }
 }));
-
-// CSRF protection
-const csrfProtection = csurf({ cookie: false });
-app.use(csrfProtection);
-
-// Pass CSRF token to views
-app.use((req, res, next) => {
-  res.locals.csrfToken = req.csrfToken();
-  next();
-});
 
 // Routes
 app.use ('/auth', authRoutes);
