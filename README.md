@@ -2,6 +2,11 @@
 
 A full-stack business intelligence dashboard with AI-powered automation workflows for coffee shop operations.
 
+## Demo Notes
+n8n is hosted on Render's free tier and spins down after 15 minutes of inactivity. 
+To view workflows, visit the n8n instance first to wake it up: 
+https://bean-there-n8n.onrender.com
+
 ## 🚀 Features
 
 ### Dashboard
